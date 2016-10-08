@@ -1551,7 +1551,7 @@
 /* Basic */
 
 	body {
-		background: #fff;
+		background: #FFFFFF;
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -2496,7 +2496,7 @@
 
 		#header .image.avatar {
 			margin: 0 0 1em 0;
-			width: 6.25em;
+			width: 7.25em;
 		}
 
 /* Footer */
@@ -2910,6 +2910,7 @@
 				background-attachment: scroll;
 				background-position: top left, center center;
 				background-size: auto,		cover;
+				background-color: #338000;
 				left: auto;
 				padding: 6em 4em;
 				position: relative;
@@ -2935,6 +2936,7 @@
 				background-position: top left,						bottom center;
 				background-repeat: repeat,							no-repeat;
 				background-size: auto,							cover;
+				background-color: #338000;
 				bottom: auto;
 				left: auto;
 				padding: 4em 4em 6em 4em;
