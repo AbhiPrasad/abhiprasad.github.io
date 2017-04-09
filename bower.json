@@ -1,0 +1,20 @@
+{
+  "name": "abhijeetwebsite",
+  "description": "Abhijeet's Personal Website",
+  "main": "index.js",
+  "authors": [
+    "Abhijeet Prasad"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "website"
+  ],
+  "homepage": "https://github.com/AbhiPrasad/abhiprasad.github.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

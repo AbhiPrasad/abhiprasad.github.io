@@ -1,0 +1,25 @@
+{
+  "name": "abhijeetwebsite",
+  "version": "1.0.0",
+  "description": "Abhijeet's Personal Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbhiPrasad/abhiprasad.github.io.git"
+  },
+  "keywords": [
+    "website"
+  ],
+  "author": "Abhijeet Prasad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AbhiPrasad/abhiprasad.github.io/issues"
+  },
+  "homepage": "https://github.com/AbhiPrasad/abhiprasad.github.io#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
+}
