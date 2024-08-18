@@ -19,6 +19,8 @@
     border-radius: 100%;
     width: 8em;
     border: 0;
+    height: 8em;
+    object-fit: contain;
 }
 
 .avatar {
