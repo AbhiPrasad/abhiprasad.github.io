@@ -139,6 +139,27 @@ function formatPresentationDate(dateStr: string): string {
         )
       }
       {
+        social.sessionize && (
+          <a
+            href={social.sessionize}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Sessionize"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3zM8 12a4 4 0 1 0 8 0V4a4 4 0 0 0-8 0v8zM5 11a1 1 0 0 1 1 1 6 6 0 0 0 12 0 1 1 0 1 1 2 0 8 8 0 0 1-7 7.93V22h3a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2h3v-2.07A8 8 0 0 1 4 12a1 1 0 0 1 1-1z" />
+            </svg>
+            <span class="link-text">Sessionize</span>
+          </a>
+        )
+      }
+      {
         social.email && (
           <a href={social.email} title="Email">
             <svg

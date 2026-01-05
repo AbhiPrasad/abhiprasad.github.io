@@ -1,0 +1,68 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/presentations", label: "Presentations" },
+  { href: "/blog", label: "Blog" },
+  { href: "/work", label: "Work" },
+];
+---
+
+<footer>
+  <nav class="footer-nav" aria-label="Site navigation">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class:list={[{ active: currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href)) }]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</footer>
+
+<style>
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-xl);
+    border-top: 2px solid var(--color-primary);
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-nav a.active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    footer {
+      padding: var(--spacing-md);
+      padding-top: var(--spacing-lg);
+    }
+
+    .footer-nav {
+      gap: var(--spacing-md);
+    }
+  }
+</style>

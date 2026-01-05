@@ -1,4 +1,6 @@
 ---
+import Footer from "../components/Footer.astro";
+
 interface Props {
   title: string;
   description?: string;
@@ -36,6 +38,7 @@ const { title, description = "Personal website" } = Astro.props;
     <main>
       <slot />
     </main>
+    <Footer />
     <script>
       const toggle = document.getElementById('theme-toggle');
       const html = document.documentElement;
