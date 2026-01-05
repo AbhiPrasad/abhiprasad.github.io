@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "add-talk": "node scripts/add-presentation.mjs"
+    "add-talk": "node scripts/add-presentation.mjs",
+    "add-blog": "node scripts/add-blog.mjs"
   },
   "dependencies": {
     "astro": "^5.16.6"

@@ -1,0 +1,8 @@
+[
+  {
+    "title": "JavaScript needs Debug IDs",
+    "description": "Sentry is proposing the adoption of content-addressable Debug IDs as a new industry standard to replace fragile, URL-based source mapping with a deterministic and reliable way to link minified JavaScript to its original source code.",
+    "date": "2025-03",
+    "url": "https://blog.sentry.io/javascript-needs-debug-ids/"
+  }
+]

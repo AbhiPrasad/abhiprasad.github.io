@@ -16,6 +16,7 @@ This is a personal website built with Astro, a static site generator. The site d
 ## Key Files
 
 - `src/data/presentations/` - Directory containing year-based JSON files (e.g., `2024.json`, `2025.json`)
+- `src/data/blog.json` - Array of blog post objects
 - `src/data/work.json` - Array of work experience objects
 - `src/data/social.json` - Object with social media URLs
 - `src/pages/index.astro` - Main page component
@@ -40,6 +41,19 @@ Edit the appropriate year file in `src/data/presentations/` (e.g., `2024.json`) 
 ```
 
 If uploading a PDF, place it in `public/slides/`.
+
+### Adding a blog post
+
+Edit `src/data/blog.json` and add an object:
+
+```json
+{
+  "title": "Blog Post Title",
+  "description": "Short description of the post",
+  "date": "YYYY-MM",
+  "url": "https://medium.com/... or external URL"
+}
+```
 
 ### Adding work experience
 
@@ -80,6 +94,7 @@ Edit `src/data/social.json`:
 Use these to quickly update content:
 
 - `/add-talk` - Guided flow to add a presentation
+- `/add-blog` - Guided flow to add a blog post
 - `/add-work` - Guided flow to add work experience
 
 ## Theme Colors

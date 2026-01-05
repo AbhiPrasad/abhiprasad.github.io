@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import work from "../data/work.json";
 import social from "../data/social.json";
+import blog from "../data/blog.json";
 
 // Load all presentation files from the presentations directory
 const presentationFiles = import.meta.glob("../data/presentations/*.json", {
@@ -22,6 +23,9 @@ const sortedWork = [...work].sort((a, b) => {
   const bEnd = b.endDate ? new Date(b.endDate) : new Date();
   return bEnd.getTime() - aEnd.getTime();
 });
+
+// Sort blog posts by date (newest first)
+const sortedBlog = [...blog].sort((a, b) => b.date.localeCompare(a.date));
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -77,6 +81,26 @@ function formatPresentationDate(dateStr: string): string {
       ))
     }
   </section>
+
+  {
+    sortedBlog.length > 0 && (
+      <section id="blog">
+        <h2>Blog Posts</h2>
+        {sortedBlog.map((post) => (
+          <article class="card">
+            <h3>{post.title}</h3>
+            <p class="meta">{formatDate(post.date)}</p>
+            <p class="description">{post.description}</p>
+            <div class="links">
+              <a href={post.url} target="_blank" rel="noopener noreferrer">
+                Read Post
+              </a>
+            </div>
+          </article>
+        ))}
+      </section>
+    )
+  }
 
   <section id="work">
     <h2>Work Experience</h2>
