@@ -1,13 +1,10 @@
 [
   {
-    "company": "Example Company",
-    "role": "Software Engineer",
-    "startDate": "2022-01",
+    "company": "Sentry",
+    "role": "Senior Software Engineer",
+    "startDate": "2021-04",
     "endDate": null,
-    "description": "Working on various projects and initiatives.",
-    "highlights": [
-      "Led development of key features",
-      "Improved system performance"
-    ]
+    "description": "Building out client infastructure at Sentry (Sentry SDKs, Tracing/OpenTelemetry, Event Processing Systems).",
+    "highlights": []
   }
 ]

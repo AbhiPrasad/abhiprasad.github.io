@@ -1,5 +1,14 @@
 [
   {
+    "title": "Slow to Fast: Looking at React Performance Problems",
+    "event": "Vienna.js June 2022",
+    "date": "2022-06-01",
+    "description": "Dive deep into optimizing and improving the performance of your production react applications by using the react profiler API, web vitals and browser APIs.",
+    "slides": "https://docs.google.com/presentation/d/1Z4Picl54EabSacSm75S84nMtxCPWngrZ/edit?usp=sharing&ouid=116996277620875513701&rtpof=true&sd=true",
+    "video": null,
+    "slidePdf": null
+  },
+  {
     "title": "A Different Vue into Web Performance",
     "event": "Vue.js Nation 2022",
     "date": "2022-01-27",
