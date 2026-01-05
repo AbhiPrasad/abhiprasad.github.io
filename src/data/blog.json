@@ -4,5 +4,47 @@
     "description": "Sentry is proposing the adoption of content-addressable Debug IDs as a new industry standard to replace fragile, URL-based source mapping with a deterministic and reliable way to link minified JavaScript to its original source code.",
     "date": "2025-03",
     "url": "https://blog.sentry.io/javascript-needs-debug-ids/"
+  },
+  {
+    "title": "Fix your actual slow-loading assets with Resource Monitoring",
+    "description": "How Sentry's Resource Monitoring feature helps identify and optimize slow-loading web assets by understanding how resources are used in production workloads.",
+    "date": "2024-01",
+    "url": "https://blog.sentry.io/fix-your-actual-slow-loading-assets-with-resource-monitoring/"
+  },
+  {
+    "title": "Local Variables for NodeJS in Sentry",
+    "description": "Introducing local variable support for Node.js SDK, enabling developers to view variable values directly in error stack traces for easier debugging.",
+    "date": "2023-02",
+    "url": "https://blog.sentry.io/local-variables-for-nodejs-in-sentry/"
+  },
+  {
+    "title": "The Sentry Remix SDK is Now Available",
+    "description": "Announcing Sentry's new SDK for the Remix framework, enabling monitoring of both client-side and server-side aspects of Remix applications.",
+    "date": "2022-09",
+    "url": "https://blog.sentry.io/the-sentry-remix-sdk-is-now-available/"
+  },
+  {
+    "title": "Understanding the Performance Impact of Generated JavaScript",
+    "description": "How developers can reduce JavaScript bundle sizes by understanding transpilation and down-compilation processes, with optimization techniques that helped reduce the Sentry SDK by 29%.",
+    "date": "2022-07",
+    "url": "https://blog.sentry.io/performance-impact-of-generated-javascript/"
+  },
+  {
+    "title": "JavaScript SDK \"Package Size is Massive\" - So we reduced it by 29%",
+    "description": "How Sentry achieved a 29% reduction in their JavaScript SDK bundle size through ES6 migration, code removal, enhanced tree shaking, and magic strings.",
+    "date": "2022-07",
+    "url": "https://blog.sentry.io/javascript-sdk-package-reduced/"
+  },
+  {
+    "title": "JS Browser SDK: Bundle size matters",
+    "description": "Sentry's efforts to reduce their JavaScript browser SDK bundle size by 20%, explaining why bundle size matters for web performance and user experience.",
+    "date": "2022-02",
+    "url": "https://blog.sentry.io/js-browser-sdk-bundle-size-matters/"
+  },
+  {
+    "title": "Sentry For Data: Error Monitoring with PySpark",
+    "description": "Announcing Sentry's PySpark integration that brings enterprise-grade error monitoring to Apache Spark data pipelines.",
+    "date": "2019-11",
+    "url": "https://blog.sentry.io/sentry-for-data-error-monitoring-with-pyspark/"
   }
 ]
