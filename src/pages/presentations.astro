@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { enrichPresentationsWithThumbnails } from "../utils/fetchOgImage";
 
 // Load all presentation files from the presentations directory
 const presentationFiles = import.meta.glob("../data/presentations/*.json", {
@@ -10,8 +11,10 @@ const presentations = Object.values(presentationFiles).flatMap(
 );
 
 // Sort presentations by date (newest first)
-const sortedPresentations = [...presentations].sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+const sortedPresentations = enrichPresentationsWithThumbnails(
+  [...presentations].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
 );
 
 function formatPresentationDate(dateStr: string): string {
@@ -36,28 +39,40 @@ function formatPresentationDate(dateStr: string): string {
   <section>
     {
       sortedPresentations.map((talk) => (
-        <article class="card">
-          <h3>{talk.title}</h3>
-          <p class="meta">
-            {talk.event} · {formatPresentationDate(talk.date)}
-          </p>
-          {talk.description && <p class="description">{talk.description}</p>}
-          <div class="links">
-            {talk.slides && (
-              <a href={talk.slides} target="_blank" rel="noopener noreferrer">
-                Slides
-              </a>
-            )}
-            {talk.slidePdf && (
-              <a href={talk.slidePdf} target="_blank" rel="noopener noreferrer">
-                PDF
-              </a>
-            )}
-            {talk.video && (
-              <a href={talk.video} target="_blank" rel="noopener noreferrer">
-                Video
-              </a>
-            )}
+        <article class={`card ${talk.thumbnail ? "presentation-card" : ""}`}>
+          {talk.thumbnail && talk.video && (
+            <a href={talk.video} target="_blank" rel="noopener noreferrer" class="thumbnail-link">
+              <img src={talk.thumbnail} alt={talk.title} loading="lazy" />
+              <div class="play-overlay">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </a>
+          )}
+          <div class={talk.thumbnail ? "presentation-content" : ""}>
+            <h3>{talk.title}</h3>
+            <p class="meta">
+              {talk.event} · {formatPresentationDate(talk.date)}
+            </p>
+            {talk.description && <p class="description">{talk.description}</p>}
+            <div class="links">
+              {talk.slides && (
+                <a href={talk.slides} target="_blank" rel="noopener noreferrer">
+                  Slides
+                </a>
+              )}
+              {talk.slidePdf && (
+                <a href={talk.slidePdf} target="_blank" rel="noopener noreferrer">
+                  PDF
+                </a>
+              )}
+              {talk.video && (
+                <a href={talk.video} target="_blank" rel="noopener noreferrer">
+                  Video
+                </a>
+              )}
+            </div>
           </div>
         </article>
       ))
@@ -79,5 +94,77 @@ function formatPresentationDate(dateStr: string): string {
 
   .back-link:hover {
     color: var(--color-accent);
+  }
+
+  .presentation-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    border-left: none;
+    border-radius: 8px;
+  }
+
+  .presentation-card .thumbnail-link {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .presentation-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .presentation-card:hover img {
+    transform: scale(1.02);
+  }
+
+  .play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .presentation-card:hover .play-overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .presentation-content {
+    padding: var(--spacing-md);
+  }
+
+  @media (min-width: 600px) {
+    .presentation-card {
+      flex-direction: row;
+    }
+
+    .presentation-card .thumbnail-link {
+      width: 240px;
+      flex-shrink: 0;
+    }
+
+    .presentation-card img {
+      width: 240px;
+      height: 100%;
+      min-height: 135px;
+    }
+
+    .presentation-content {
+      flex: 1;
+    }
   }
 </style>

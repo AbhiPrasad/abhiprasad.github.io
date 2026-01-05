@@ -92,3 +92,54 @@ export async function enrichBlogPostsWithImages<
   );
   return results;
 }
+
+/**
+ * Extracts the YouTube video ID from various YouTube URL formats.
+ * Supports:
+ * - https://www.youtube.com/watch?v=VIDEO_ID
+ * - https://youtube.com/watch?v=VIDEO_ID
+ * - https://youtu.be/VIDEO_ID
+ * - https://www.youtube.com/embed/VIDEO_ID
+ */
+export function getYouTubeVideoId(url: string): string | null {
+  if (!url) return null;
+
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtube\.com\/watch\?.*&v=)([^&]+)/,
+    /youtu\.be\/([^?&]+)/,
+    /youtube\.com\/embed\/([^?&]+)/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) {
+      return match[1];
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Gets the YouTube thumbnail URL for a video.
+ * Uses hqdefault as it's more reliably available than maxresdefault.
+ */
+export function getYouTubeThumbnail(videoUrl: string): string | null {
+  const videoId = getYouTubeVideoId(videoUrl);
+  if (!videoId) return null;
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+/**
+ * Enriches presentations with YouTube thumbnails where available.
+ */
+export function enrichPresentationsWithThumbnails<
+  T extends { video?: string | null }
+>(presentations: T[]): (T & { thumbnail: string | null })[] {
+  return presentations.map((presentation) => {
+    const thumbnail = presentation.video
+      ? getYouTubeThumbnail(presentation.video)
+      : null;
+    return { ...presentation, thumbnail };
+  });
+}
