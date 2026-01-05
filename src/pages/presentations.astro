@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Load all presentation files from the presentations directory
+const presentationFiles = import.meta.glob("../data/presentations/*.json", {
+  eager: true,
+});
+const presentations = Object.values(presentationFiles).flatMap(
+  (module: any) => module.default
+);
+
+// Sort presentations by date (newest first)
+const sortedPresentations = [...presentations].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+function formatPresentationDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<Layout
+  title="Presentations & Talks - Abhijeet Prasad"
+  description="All presentations and talks by Abhijeet Prasad"
+>
+  <header>
+    <a href="/" class="back-link">&larr; Back to home</a>
+    <h1>Presentations & Talks</h1>
+  </header>
+
+  <section>
+    {
+      sortedPresentations.map((talk) => (
+        <article class="card">
+          <h3>{talk.title}</h3>
+          <p class="meta">
+            {talk.event} · {formatPresentationDate(talk.date)}
+          </p>
+          {talk.description && <p class="description">{talk.description}</p>}
+          <div class="links">
+            {talk.slides && (
+              <a href={talk.slides} target="_blank" rel="noopener noreferrer">
+                Slides
+              </a>
+            )}
+            {talk.slidePdf && (
+              <a href={talk.slidePdf} target="_blank" rel="noopener noreferrer">
+                PDF
+              </a>
+            )}
+            {talk.video && (
+              <a href={talk.video} target="_blank" rel="noopener noreferrer">
+                Video
+              </a>
+            )}
+          </div>
+        </article>
+      ))
+    }
+  </section>
+</Layout>
+
+<style>
+  header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+</style>

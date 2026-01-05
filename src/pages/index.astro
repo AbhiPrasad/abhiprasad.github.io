@@ -27,6 +27,11 @@ const sortedWork = [...work].sort((a, b) => {
 // Sort blog posts by date (newest first)
 const sortedBlog = [...blog].sort((a, b) => b.date.localeCompare(a.date));
 
+// Limit to top 3 for homepage display
+const displayedPresentations = sortedPresentations.slice(0, 3);
+const displayedBlog = sortedBlog.slice(0, 3);
+const displayedWork = sortedWork.slice(0, 3);
+
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
@@ -53,7 +58,7 @@ function formatPresentationDate(dateStr: string): string {
   <section id="presentations">
     <h2>Presentations & Talks</h2>
     {
-      sortedPresentations.map((talk) => (
+      displayedPresentations.map((talk) => (
         <article class="card">
           <h3>{talk.title}</h3>
           <p class="meta">
@@ -80,13 +85,16 @@ function formatPresentationDate(dateStr: string): string {
         </article>
       ))
     }
+    {sortedPresentations.length > 3 && (
+      <a href="/presentations" class="view-all">View all presentations</a>
+    )}
   </section>
 
   {
     sortedBlog.length > 0 && (
       <section id="blog">
         <h2>Blog Posts</h2>
-        {sortedBlog.map((post) => (
+        {displayedBlog.map((post) => (
           <article class="card">
             <h3>{post.title}</h3>
             <p class="meta">{formatDate(post.date)}</p>
@@ -98,6 +106,9 @@ function formatPresentationDate(dateStr: string): string {
             </div>
           </article>
         ))}
+        {sortedBlog.length > 3 && (
+          <a href="/blog" class="view-all">View all blog posts</a>
+        )}
       </section>
     )
   }
@@ -105,7 +116,7 @@ function formatPresentationDate(dateStr: string): string {
   <section id="work">
     <h2>Work Experience</h2>
     {
-      sortedWork.map((job) => (
+      displayedWork.map((job) => (
         <article class="card">
           <h3>{job.role}</h3>
           <p class="meta">
@@ -123,6 +134,9 @@ function formatPresentationDate(dateStr: string): string {
         </article>
       ))
     }
+    {sortedWork.length > 3 && (
+      <a href="/work" class="view-all">View all work experience</a>
+    )}
   </section>
 
   <section id="connect">
@@ -218,6 +232,17 @@ function formatPresentationDate(dateStr: string): string {
   }
 
   .highlights li::marker {
+    color: var(--color-accent);
+  }
+
+  .view-all {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .view-all:hover {
     color: var(--color-accent);
   }
 </style>

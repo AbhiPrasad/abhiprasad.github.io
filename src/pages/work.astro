@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import work from "../data/work.json";
+
+// Sort work by end date (current/most recent first)
+const sortedWork = [...work].sort((a, b) => {
+  const aEnd = a.endDate ? new Date(a.endDate) : new Date();
+  const bEnd = b.endDate ? new Date(b.endDate) : new Date();
+  return bEnd.getTime() - aEnd.getTime();
+});
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+}
+---
+
+<Layout
+  title="Work Experience - Abhijeet Prasad"
+  description="Work experience of Abhijeet Prasad"
+>
+  <header>
+    <a href="/" class="back-link">&larr; Back to home</a>
+    <h1>Work Experience</h1>
+  </header>
+
+  <section>
+    {
+      sortedWork.map((job) => (
+        <article class="card">
+          <h3>{job.role}</h3>
+          <p class="meta">
+            {job.company} · {formatDate(job.startDate)} -{" "}
+            {job.endDate ? formatDate(job.endDate) : "Present"}
+          </p>
+          {job.description && <p class="description">{job.description}</p>}
+          {job.highlights && job.highlights.length > 0 && (
+            <ul class="highlights">
+              {job.highlights.map((highlight: string) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+          )}
+        </article>
+      ))
+    }
+  </section>
+</Layout>
+
+<style>
+  header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .highlights {
+    margin-top: var(--spacing-sm);
+    padding-left: var(--spacing-lg);
+    color: var(--color-text-muted);
+  }
+
+  .highlights li {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .highlights li::marker {
+    color: var(--color-accent);
+  }
+</style>
