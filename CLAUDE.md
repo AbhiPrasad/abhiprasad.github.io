@@ -15,7 +15,7 @@ This is a personal website built with Astro, a static site generator. The site d
 
 ## Key Files
 
-- `src/data/presentations.json` - Array of presentation objects
+- `src/data/presentations/` - Directory containing year-based JSON files (e.g., `2024.json`, `2025.json`)
 - `src/data/work.json` - Array of work experience objects
 - `src/data/social.json` - Object with social media URLs
 - `src/pages/index.astro` - Main page component
@@ -25,7 +25,7 @@ This is a personal website built with Astro, a static site generator. The site d
 
 ### Adding a presentation
 
-Edit `src/data/presentations.json` and add an object:
+Edit the appropriate year file in `src/data/presentations/` (e.g., `2024.json`) and add an object:
 
 ```json
 {

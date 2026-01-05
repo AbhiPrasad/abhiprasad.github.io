@@ -13,9 +13,12 @@ Add a new presentation to the website. The user will provide details about the t
    - Video URL (optional, e.g., YouTube)
    - PDF file path (optional, if uploading to repo put in `public/slides/`)
 
-2. Read the current `src/data/presentations.json` file
+2. Extract the year from the date provided (e.g., "2024" from "2024-01-15")
 
-3. Add the new presentation entry to the JSON array with this structure:
+3. Read the year's JSON file at `src/data/presentations/YYYY.json` (e.g., `src/data/presentations/2024.json`)
+   - If the file doesn't exist, create it with an empty array
+
+4. Add the new presentation entry to the JSON array with this structure:
    ```json
    {
      "title": "Talk Title",
@@ -28,14 +31,15 @@ Add a new presentation to the website. The user will provide details about the t
    }
    ```
 
-4. Write the updated JSON back to `src/data/presentations.json`
+5. Write the updated JSON back to `src/data/presentations/YYYY.json`
 
-5. If a PDF was provided for upload, ensure it's placed in `public/slides/`
+6. If a PDF was provided for upload, ensure it's placed in `public/slides/`
 
-6. Confirm the addition was successful and show the user the new entry
+7. Confirm the addition was successful and show the user the new entry
 
 ## Notes
 
 - Set `slides`, `video`, or `slidePdf` to `null` if not provided
 - The website automatically sorts talks by date (newest first)
 - PDF paths should start with `/slides/` if stored in this repo
+- Presentations are organized by year (e.g., `2024.json`, `2025.json`)

@@ -1,8 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import presentations from '../data/presentations.json';
 import work from '../data/work.json';
 import social from '../data/social.json';
+
+// Load all presentation files from the presentations directory
+const presentationFiles = import.meta.glob('../data/presentations/*.json', { eager: true });
+const presentations = Object.values(presentationFiles).flatMap(
+  (module: any) => module.default
+);
 
 // Sort presentations by date (newest first)
 const sortedPresentations = [...presentations].sort((a, b) =>
