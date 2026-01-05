@@ -1,0 +1,20 @@
+[
+  {
+    "title": "AMA: Getting Started with OpenTelemetry and Sentry",
+    "event": "Sentry Workshop March 2023",
+    "date": "2023-03-23",
+    "description": "Learn how to understand the performance of your OpenTelemetry instrumented applications with Sentry. This AMA covers how to turn raw telemetry data into actionable insights for tracing performance issues and surfacing errors.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=5OWNuaWmKBk",
+    "slidePdf": null
+  },
+  {
+    "title": "Publishing JavaScript Libraries Made Easy",
+    "event": "Web Unleashed 2023",
+    "date": "2023-10-14",
+    "description": "Publishing JavaScript libraries is complicated with different runtimes, TypeScript settings, bundler configurations, and the ESM vs CJS divide. This talk covers strategies for building robust libraries that are easy to use and stay working as JavaScript evolves.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=cmavxPmFmys",
+    "slidePdf": null
+  }
+]

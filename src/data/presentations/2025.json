@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Making ESM observability work against all odds",
+    "event": "Warp Meetup February 2025",
+    "date": "2025-02-18",
+    "description": "Using ESM introduces a host of new observability challenges for server-side JavaScript applications. This talk walks through why those challenges exist and approaches you can take to make ESM observability work against all odds.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=ZyWH_-PGulc&t=3673s",
+    "slidePdf": null
+  },
+  {
+    "title": "Even Your Components Need a Safety Net: React Error Handling Deep Dive",
+    "event": "React Miami 2025",
+    "date": "2025-04-18",
+    "description": "A deep dive into React error boundaries and the new error handling hooks introduced in React 19. Learn how Sentry leverages these capabilities to power debugging features for every developer.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=7s__88kCBa8",
+    "slidePdf": null
+  },
+  {
+    "title": "Module Customization Hooks by Example",
+    "event": "JSConf US 2025",
+    "date": "2025-10-16",
+    "description": "Node.js module customization hooks let you expand functionality for use cases like dynamic patching, loading TypeScript files, and APM instrumentation. This talk walks through hands-on examples showing how to use these hooks to create more adaptable Node.js applications.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=fuRA874CkZU",
+    "slidePdf": null
+  },
+  {
+    "title": "Achieving End-to-End Production Visibility with Tracing",
+    "event": "code.talks 2025",
+    "date": "2025-11-06",
+    "description": "Modern applications often become complex black boxes when issues arise, making it difficult to pinpoint root causes across frontend and backend components. This talk reveals how distributed tracing transforms fragmented telemetry into actionable insights, empowering developers to diagnose problems faster and build more resilient systems.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=vL2yeezEPxc",
+    "slidePdf": null
+  }
+]

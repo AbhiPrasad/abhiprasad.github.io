@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Workshop: A Different Vue into Web Performance",
+    "event": "Vue.JS Live 2021",
+    "date": "2021-11-08",
+    "description": "Identifying front-end performance problems can be harder than solving them. This workshop dives into UX research, browser performance APIs, and developer tools to help you understand why your Vue applications may be slow.",
+    "slides": null,
+    "video": "https://www.youtube.com/watch?v=lZt5Hwh_JWQ",
+    "slidePdf": null
+  }
+]

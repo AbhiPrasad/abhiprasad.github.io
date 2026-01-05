@@ -1,20 +1,29 @@
 [
   {
+    "title": "A Different Vue into Web Performance",
+    "event": "Vue.js Nation 2022",
+    "date": "2022-01-27",
+    "description": "Identifying front-end performance problems can be harder than solving them. This talk dives into UX research, browser performance APIs, and developer tools to help you understand why your Vue applications may be slow.",
+    "slides": "https://docs.google.com/presentation/d/1DziqW2JOshCSZ9PbS_ewy1GunUwpy_vo/edit?usp=sharing&ouid=116996277620875513701&rtpof=true&sd=true",
+    "video": "https://www.youtube.com/watch?v=mgEQAA9Rn7s",
+    "slidePdf": null
+  },
+  {
     "title": "Slow to Fast: Looking at React Performance Problems",
     "event": "Vienna.js June 2022",
     "date": "2022-06-01",
-    "description": "Dive deep into optimizing and improving the performance of your production react applications by using the react profiler API, web vitals and browser APIs.",
+    "description": "Dive deep into optimizing production React application performance. Learn how to use the React Profiler API, Web Vitals, and browser APIs to identify and fix bottlenecks.",
     "slides": "https://docs.google.com/presentation/d/1Z4Picl54EabSacSm75S84nMtxCPWngrZ/edit?usp=sharing&ouid=116996277620875513701&rtpof=true&sd=true",
     "video": null,
     "slidePdf": null
   },
   {
-    "title": "A Different Vue into Web Performance",
-    "event": "Vue.js Nation 2022",
-    "date": "2022-01-27",
-    "description": "Solving your front-end performance problems can be hard, but identifying where you have performance problems in the first place can be even harder. In this talk, we dive deep into UX research, browser performance APIs, and developer tools to help show you the reasons why your Vue applications may be slow. We'll answer questions like, \"What does it mean to have a fast website?\" and \"How do I know if my performance problem is really a problem?\".",
-    "slides": "https://docs.google.com/presentation/d/1DziqW2JOshCSZ9PbS_ewy1GunUwpy_vo/edit?usp=sharing&ouid=116996277620875513701&rtpof=true&sd=true",
-    "video": "https://www.youtube.com/watch?v=mgEQAA9Rn7s",
+    "title": "Monitoring Your Production Vue Apps",
+    "event": "VueConf US 2023",
+    "date": "2023-05-25",
+    "description": "Learn how to get increased visibility into your Vue applications in production. This talk covers tracking performance metrics, configuring distributed tracing, and exploring monitoring tools for better insights.",
+    "slides": "null",
+    "video": "https://www.youtube.com/watch?v=sEWsyfkjIQo",
     "slidePdf": null
   }
 ]
