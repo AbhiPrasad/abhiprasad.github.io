@@ -1,0 +1,11 @@
+[
+  {
+    "title": "A Different Vue into Web Performance",
+    "event": "Vue.js Nation 2022",
+    "date": "2022-01-27",
+    "description": "Solving your front-end performance problems can be hard, but identifying where you have performance problems in the first place can be even harder. In this talk, we dive deep into UX research, browser performance APIs, and developer tools to help show you the reasons why your Vue applications may be slow. We'll answer questions like, \"What does it mean to have a fast website?\" and \"How do I know if my performance problem is really a problem?\".",
+    "slides": "https://docs.google.com/presentation/d/1DziqW2JOshCSZ9PbS_ewy1GunUwpy_vo/edit?usp=sharing&ouid=116996277620875513701&rtpof=true&sd=true",
+    "video": "https://www.youtube.com/watch?v=mgEQAA9Rn7s",
+    "slidePdf": null
+  }
+]
