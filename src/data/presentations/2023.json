@@ -16,5 +16,14 @@
     "slides": null,
     "video": "https://www.youtube.com/watch?v=cmavxPmFmys",
     "slidePdf": null
+  },
+  {
+    "title": "The Performance Impact of Generated JavaScript",
+    "event": "JSNation US 2024",
+    "date": "2023-03-23",
+    "description": "The JavaScript you write is not the same as the JavaScript that runs in your browser, and understanding your final bundle is crucial for maximizing performance. This talk covers transpilation nuances, tree-shaking, minification, and loading strategies to help you optimize your generated JavaScript.",
+    "slides": null,
+    "video": "https://gitnation.com/contents/the-performance-impact-of-generated-javascript",
+    "slidePdf": null
   }
 ]
