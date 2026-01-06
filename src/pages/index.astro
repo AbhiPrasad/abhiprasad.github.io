@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import work from "../data/work.json";
 import social from "../data/social.json";
 import blog from "../data/blog.json";
+import projects from "../data/projects.json";
 import {
   enrichBlogPostsWithImages,
   enrichPresentationsWithThumbnails,
@@ -37,6 +38,7 @@ const displayedPresentations = enrichPresentationsWithThumbnails(
 );
 const displayedBlog = sortedBlog.slice(0, 3);
 const displayedWork = sortedWork.slice(0, 3);
+const displayedProjects = projects.slice(0, 3);
 
 // Fetch OG images for displayed blog posts
 const displayedBlogWithImages = await enrichBlogPostsWithImages(displayedBlog);
@@ -276,6 +278,32 @@ const personSchema = {
       )
     }
   </section>
+
+  {
+    projects.length > 0 && (
+      <section id="projects">
+        <h2>Projects</h2>
+        {displayedProjects.map((project) => (
+          <article class="card">
+            <h3>{project.name}</h3>
+            <p class="description">{project.description}</p>
+            {project.url && (
+              <div class="links">
+                <a href={project.url} target="_blank" rel="noopener noreferrer">
+                  View Project
+                </a>
+              </div>
+            )}
+          </article>
+        ))}
+        {projects.length > 3 && (
+          <a href="/projects" class="view-all">
+            View all projects
+          </a>
+        )}
+      </section>
+    )
+  }
 
   {
     sortedBlog.length > 0 && (

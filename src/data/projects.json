@@ -1,0 +1,7 @@
+[
+  {
+    "name": "OTLP Payload Validator",
+    "description": "Validate OpenTelemetry Protocol (OTLP) payloads for traces, logs, and metrics",
+    "url": "https://otel-validator.devabhiprasad.workers.dev/"
+  }
+]

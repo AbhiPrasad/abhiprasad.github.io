@@ -17,6 +17,7 @@ This is a personal website built with Astro, a static site generator. The site d
 
 - `src/data/presentations/` - Directory containing year-based JSON files (e.g., `2024.json`, `2025.json`)
 - `src/data/blog.json` - Array of blog post objects
+- `src/data/projects.json` - Array of project objects
 - `src/data/work.json` - Array of work experience objects
 - `src/data/social.json` - Object with social media URLs
 - `src/pages/index.astro` - Main page component
@@ -52,6 +53,18 @@ Edit `src/data/blog.json` and add an object:
   "description": "Short description of the post",
   "date": "YYYY-MM",
   "url": "https://medium.com/... or external URL"
+}
+```
+
+### Adding a project
+
+Edit `src/data/projects.json` and add an object:
+
+```json
+{
+  "name": "Project Name",
+  "description": "Short description of the project",
+  "url": "https://github.com/... or project URL (optional)"
 }
 ```
 
