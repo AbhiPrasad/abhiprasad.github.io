@@ -3,7 +3,7 @@
  * These are generic fallback images that don't provide meaningful visual context.
  */
 const DEFAULT_IMAGE_PATTERNS = [
-  /\/static\/default-[a-f0-9]+\.png$/i,  // Sentry blog default images
+  /\/static\/default-[a-f0-9]+\.png$/i, // Sentry blog default images
   /\/default-og-image\./i,
   /\/placeholder\./i,
   /\/fallback\./i,
@@ -13,7 +13,7 @@ const DEFAULT_IMAGE_PATTERNS = [
  * Checks if an image URL is a known default/placeholder image.
  */
 function isDefaultImage(imageUrl: string): boolean {
-  return DEFAULT_IMAGE_PATTERNS.some(pattern => pattern.test(imageUrl));
+  return DEFAULT_IMAGE_PATTERNS.some((pattern) => pattern.test(imageUrl));
 }
 
 /**
@@ -81,9 +81,9 @@ export async function fetchOgImage(url: string): Promise<string | null> {
  * Fetches OG images for an array of blog posts.
  * Returns the posts with an added `image` property.
  */
-export async function enrichBlogPostsWithImages<
-  T extends { url: string }
->(posts: T[]): Promise<(T & { image: string | null })[]> {
+export async function enrichBlogPostsWithImages<T extends { url: string }>(
+  posts: T[]
+): Promise<(T & { image: string | null })[]> {
   const results = await Promise.all(
     posts.map(async (post) => {
       const image = await fetchOgImage(post.url);

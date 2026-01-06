@@ -4,9 +4,22 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article" | "profile";
+  structuredData?: object;
 }
 
-const { title, description = "Personal website" } = Astro.props;
+const {
+  title,
+  description = "Personal website of Abhijeet Prasad - presentations, work experience, and blog posts",
+  image,
+  type = "website",
+  structuredData,
+} = Astro.props;
+
+const siteUrl = "https://abhiprasad.github.io";
+const pageUrl = Astro.url.href;
+const fullImageUrl = image ? (image.startsWith("http") ? image : `${siteUrl}${image}`) : undefined;
 ---
 
 <!doctype html>
@@ -17,6 +30,39 @@ const { title, description = "Personal website" } = Astro.props;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!-- Resource hints for external domains -->
+    <link rel="dns-prefetch" href="https://img.youtube.com" />
+    <link rel="preconnect" href="https://img.youtube.com" crossorigin />
+    <link rel="dns-prefetch" href="https://blog.sentry.io" />
+    <link rel="preconnect" href="https://blog.sentry.io" crossorigin />
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://linkedin.com" />
+    <link rel="dns-prefetch" href="https://medium.com" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={pageUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Abhijeet Prasad" />
+    {fullImageUrl && <meta property="og:image" content={fullImageUrl} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={fullImageUrl ? "summary_large_image" : "summary"} />
+    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="@imabhiprasad" />
+    {fullImageUrl && <meta name="twitter:image" content={fullImageUrl} />}
+
+    <!-- Structured Data -->
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
   </head>
   <body>
     <button id="theme-toggle" aria-label="Toggle dark mode">

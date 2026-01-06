@@ -84,12 +84,12 @@ Update social media links:
 
 ## Commands
 
-| Command           | Action                                      |
-| :---------------- | :------------------------------------------ |
-| `npm install`     | Install dependencies                        |
-| `npm run dev`     | Start dev server at `localhost:4321`        |
-| `npm run build`   | Build production site to `./dist/`          |
-| `npm run preview` | Preview build locally before deploying      |
+| Command           | Action                                 |
+| :---------------- | :------------------------------------- |
+| `npm install`     | Install dependencies                   |
+| `npm run dev`     | Start dev server at `localhost:4321`   |
+| `npm run build`   | Build production site to `./dist/`     |
+| `npm run preview` | Preview build locally before deploying |
 
 ## Deployment
 
@@ -115,3 +115,25 @@ The site uses a forest green, white, and gold color scheme:
 - Primary: Forest Green (`#228B22`)
 - Background: White (`#FFFFFF`)
 - Accent: Gold (`#DAA520`)
+
+## TODO: Future Improvements
+
+### Medium Priority
+
+- [ ] **Performance: Add explicit image dimensions** - Prevent Cumulative Layout Shift (CLS) on thumbnails
+- [ ] **Accessibility: Add skip-to-content link** - Better keyboard navigation
+- [ ] **UX: Add year filters on presentations page** - Filter by year since data is organized by year
+- [ ] **UX: Add search/filter for presentations** - Find talks by keyword as content grows
+- [ ] **Content: Create resume/CV page** - Dedicated page with downloadable PDF
+- [ ] **Code: Extract reusable components** - `PresentationCard.astro`, `BlogCard.astro`, `WorkCard.astro`
+
+### Low Priority
+
+- [ ] **Content: Add projects showcase page** - Highlight open-source work and side projects
+- [ ] **UX: Add tags/categories to presentations and blog posts** - Better content organization
+- [ ] **UX: Add back-to-top button** - For long listing pages
+- [ ] **Features: Add RSS feed for blog** - Allow subscription to new posts
+- [ ] **Features: Add PWA support** - manifest.json for installable web app
+- [ ] **DevOps: Add Lighthouse CI checks** - Automated performance monitoring
+- [ ] **Accessibility: Verify color contrast** - Especially gold accent (#DAA520) on white background
+- [ ] **Content: Add testimonials/recommendations section** - Build credibility

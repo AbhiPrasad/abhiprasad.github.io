@@ -11,6 +11,7 @@
     "add-blog": "node scripts/add-blog.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.6"
   }
 }

@@ -3,7 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import work from "../data/work.json";
 import social from "../data/social.json";
 import blog from "../data/blog.json";
-import { enrichBlogPostsWithImages, enrichPresentationsWithThumbnails } from "../utils/fetchOgImage";
+import {
+  enrichBlogPostsWithImages,
+  enrichPresentationsWithThumbnails,
+} from "../utils/fetchOgImage";
 
 // Load all presentation files from the presentations directory
 const presentationFiles = import.meta.glob("../data/presentations/*.json", {
@@ -29,7 +32,9 @@ const sortedWork = [...work].sort((a, b) => {
 const sortedBlog = [...blog].sort((a, b) => b.date.localeCompare(a.date));
 
 // Limit to top 3 for homepage display
-const displayedPresentations = enrichPresentationsWithThumbnails(sortedPresentations.slice(0, 3));
+const displayedPresentations = enrichPresentationsWithThumbnails(
+  sortedPresentations.slice(0, 3)
+);
 const displayedBlog = sortedBlog.slice(0, 3);
 const displayedWork = sortedWork.slice(0, 3);
 
@@ -49,11 +54,26 @@ function formatPresentationDate(dateStr: string): string {
     day: "numeric",
   });
 }
+
+// Person schema for structured data
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Abhijeet Prasad",
+  jobTitle: "Senior Software Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Sentry",
+  },
+  url: "https://abhiprasad.github.io",
+  sameAs: [social.github, social.linkedin, social.twitter].filter(Boolean),
+};
 ---
 
 <Layout
   title="Abhijeet Prasad"
   description="Personal website - presentations, work experience, and social links"
+  structuredData={personSchema}
 >
   <header>
     <h1>Abhijeet Prasad</h1>
@@ -197,11 +217,22 @@ function formatPresentationDate(dateStr: string): string {
       displayedPresentations.map((talk) => (
         <article class={`card ${talk.thumbnail ? "presentation-card" : ""}`}>
           {talk.thumbnail && talk.video && (
-            <a href={talk.video} target="_blank" rel="noopener noreferrer" class="thumbnail-link">
+            <a
+              href={talk.video}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="thumbnail-link"
+            >
               <img src={talk.thumbnail} alt={talk.title} loading="lazy" />
               <div class="play-overlay">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5v14l11-7z" />
                 </svg>
               </div>
             </a>
@@ -219,7 +250,11 @@ function formatPresentationDate(dateStr: string): string {
                 </a>
               )}
               {talk.slidePdf && (
-                <a href={talk.slidePdf} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={talk.slidePdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   PDF
                 </a>
               )}
@@ -248,12 +283,27 @@ function formatPresentationDate(dateStr: string): string {
         <h2>Blog Posts</h2>
         {displayedBlogWithImages.map((post) => (
           <article class="card blog-card">
-            <a href={post.url} target="_blank" rel="noopener noreferrer" class="image-link">
+            <a
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="image-link"
+            >
               {post.image ? (
                 <img src={post.image} alt={post.title} loading="lazy" />
               ) : (
                 <div class="image-placeholder">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
                     <path d="M8 7h6" />
                     <path d="M8 11h8" />
@@ -377,7 +427,11 @@ function formatPresentationDate(dateStr: string): string {
   .image-placeholder {
     width: 100%;
     height: 180px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: center;
