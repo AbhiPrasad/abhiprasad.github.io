@@ -62,10 +62,10 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Abhijeet Prasad",
-  jobTitle: "Senior Software Engineer",
+  jobTitle: "Open Source Engineer",
   worksFor: {
     "@type": "Organization",
-    name: "Sentry",
+    name: "Braintrust",
   },
   url: "https://abhiprasad.github.io",
   sameAs: [social.github, social.linkedin, social.twitter].filter(Boolean),
@@ -205,9 +205,9 @@ const personSchema = {
     <p class="intro">
       I love building out solutions to really difficult problems and seeing them
       come to life. Currently I'm at <a
-        href="https://sentry.io/about/"
+        href="https://www.braintrust.dev/"
         target="_blank"
-        rel="noopener noreferrer">Sentry</a
+        rel="noopener noreferrer">Braintrust</a
       > working on open source software. Feel free to reach out, I'm always looking
       for interesting opportunities!
     </p>
@@ -341,7 +341,7 @@ const personSchema = {
         <article class="card">
           <h3>{job.role}</h3>
           <p class="meta">
-            {job.company} · {formatDate(job.startDate)} -{" "}
+            {job.url ? <a href={job.url} target="_blank" rel="noopener noreferrer">{job.company}</a> : job.company} · {formatDate(job.startDate)} -{" "}
             {job.endDate ? formatDate(job.endDate) : "Present"}
           </p>
           {job.description && <p class="description">{job.description}</p>}

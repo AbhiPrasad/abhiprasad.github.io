@@ -30,7 +30,7 @@ function formatDate(dateStr: string): string {
         <article class="card">
           <h3>{job.role}</h3>
           <p class="meta">
-            {job.company} · {formatDate(job.startDate)} -{" "}
+            {job.url ? <a href={job.url} target="_blank" rel="noopener noreferrer">{job.company}</a> : job.company} · {formatDate(job.startDate)} -{" "}
             {job.endDate ? formatDate(job.endDate) : "Present"}
           </p>
           {job.description && <p class="description">{job.description}</p>}

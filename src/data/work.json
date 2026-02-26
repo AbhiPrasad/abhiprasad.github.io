@@ -1,9 +1,19 @@
 [
   {
+    "company": "Braintrust",
+    "url": "https://www.braintrust.dev/",
+    "role": "Open Source Engineer",
+    "startDate": "2026-02",
+    "endDate": null,
+    "description": "Working on open source software at Braintrust.",
+    "highlights": []
+  },
+  {
     "company": "Sentry",
+    "url": "https://sentry.io/",
     "role": "Senior Software Engineer",
     "startDate": "2021-04",
-    "endDate": null,
+    "endDate": "2026-01",
     "description": "Building out client infastructure at Sentry (Sentry SDKs, Tracing/OpenTelemetry, Event Processing Systems).",
     "highlights": []
   }
