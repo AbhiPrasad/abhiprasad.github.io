@@ -42,11 +42,11 @@ const displayedBlog = sortedBlog.slice(0, 3);
 const displayedWork = sortedWork.slice(0, 3);
 const displayedProjects = projects.slice(0, 3);
 
-// Fetch OG images for displayed blog posts
-const displayedBlogWithImages = await enrichBlogPostsWithImages(displayedBlog);
-
-// Fetch GitHub contributions for Braintrust
-const contributions = await fetchContributions();
+// Fetch OG images and GitHub contributions in parallel
+const [displayedBlogWithImages, contributions] = await Promise.all([
+  enrichBlogPostsWithImages(displayedBlog),
+  fetchContributions(),
+]);
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);

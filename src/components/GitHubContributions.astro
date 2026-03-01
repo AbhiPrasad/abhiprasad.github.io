@@ -33,7 +33,7 @@ function pluralize(count: number, singular: string): string {
   {/* PR view */}
   <div class="gh-view" data-type="prs">
     <p class="gh-summary">
-      {pluralize(contributions.totals.prs.total, "PR")} merged across {pluralize(contributions.totals.repoCount, "repo")}
+      {pluralize(contributions.totals.prs.total, "PR")} merged across {pluralize(contributions.repos.length, "repo")}
     </p>
     {(contributions.totals.prs.last30days > 0 || contributions.totals.prs.last7days > 0) && (
       <p class="gh-recent">
@@ -58,7 +58,7 @@ function pluralize(count: number, singular: string): string {
   {/* Commits view */}
   <div class="gh-view" data-type="commits">
     <p class="gh-summary">
-      {pluralize(contributions.totals.commits.total, "commit")} across {pluralize(contributions.totals.repoCount, "repo")}
+      {pluralize(contributions.totals.commits.total, "commit")} across {pluralize(contributions.repos.length, "repo")}
     </p>
     {(contributions.totals.commits.last30days > 0 || contributions.totals.commits.last7days > 0) && (
       <p class="gh-recent">

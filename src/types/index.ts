@@ -60,6 +60,5 @@ export interface OrgContributions {
   totals: {
     prs: ContributionCounts;
     commits: ContributionCounts;
-    repoCount: number;
   };
 }

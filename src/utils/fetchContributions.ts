@@ -20,7 +20,6 @@ interface CachedData {
 
 function readCache(): OrgContributions | null {
   try {
-    if (!fs.existsSync(CACHE_FILE)) return null;
     const raw = fs.readFileSync(CACHE_FILE, "utf-8");
     const cached: CachedData = JSON.parse(raw);
     const token = process.env.GITHUB_TOKEN;
@@ -50,9 +49,7 @@ function readCache(): OrgContributions | null {
 
 function writeCache(data: OrgContributions): void {
   try {
-    if (!fs.existsSync(CACHE_DIR)) {
-      fs.mkdirSync(CACHE_DIR, { recursive: true });
-    }
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
     const cached: CachedData = { timestamp: Date.now(), data };
     fs.writeFileSync(CACHE_FILE, JSON.stringify(cached, null, 2));
   } catch (err) {
@@ -148,20 +145,20 @@ export async function fetchContributions(): Promise<OrgContributions | null> {
   try {
     console.log("[contributions] Fetching contribution data from GitHub...");
 
-    // Step 1: Fetch merged PRs
-    const prs = await fetchAllSearchResults(
-      `https://api.github.com/search/issues?q=author:${AUTHOR}+org:${ORG}+type:pr+is:merged`,
-      token
-    );
+    // Fetch merged PRs and commits in parallel
+    const [prs, commits] = await Promise.all([
+      fetchAllSearchResults(
+        `https://api.github.com/search/issues?q=author:${AUTHOR}+org:${ORG}+type:pr+is:merged`,
+        token
+      ),
+      fetchAllSearchResults(
+        `https://api.github.com/search/commits?q=author:${AUTHOR}+org:${ORG}`,
+        token,
+        "application/vnd.github.cloak-preview+json"
+      ),
+    ]);
 
-    // Step 2: Fetch commits
-    const commits = await fetchAllSearchResults(
-      `https://api.github.com/search/commits?q=author:${AUTHOR}+org:${ORG}`,
-      token,
-      "application/vnd.github.cloak-preview+json"
-    );
-
-    // Step 3: Group by repo
+    // Group by repo
     // PR repo extraction: repository_url ends with /repos/{org}/{repo}
     const prsByRepo = new Map<string, Date[]>();
     for (const pr of prs) {
@@ -181,7 +178,7 @@ export async function fetchContributions(): Promise<OrgContributions | null> {
       );
     }
 
-    // Step 4: Build repo list with counts
+    // Build repo list with counts
     const allRepoNames = new Set([...prsByRepo.keys(), ...commitsByRepo.keys()]);
     const repos: RepoContributions[] = [];
 
@@ -202,7 +199,7 @@ export async function fetchContributions(): Promise<OrgContributions | null> {
         b.prs.total + b.commits.total - (a.prs.total + a.commits.total)
     );
 
-    // Step 5: Calculate totals
+    // Calculate totals
     let totalPrs: ContributionCounts = { ...zeroCounts };
     let totalCommits: ContributionCounts = { ...zeroCounts };
     for (const repo of repos) {
@@ -216,13 +213,12 @@ export async function fetchContributions(): Promise<OrgContributions | null> {
       totals: {
         prs: totalPrs,
         commits: totalCommits,
-        repoCount: repos.length,
       },
     };
 
     writeCache(result);
     console.log(
-      `[contributions] Fetched: ${totalPrs.total} PRs, ${totalCommits.total} commits across ${result.totals.repoCount} repos`
+      `[contributions] Fetched: ${totalPrs.total} PRs, ${totalCommits.total} commits across ${repos.length} repos`
     );
 
     return result;
