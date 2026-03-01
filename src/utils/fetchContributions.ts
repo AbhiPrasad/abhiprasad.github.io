@@ -148,36 +148,20 @@ export async function fetchContributions(): Promise<OrgContributions | null> {
   try {
     console.log("[contributions] Fetching contribution data from GitHub...");
 
-    // Step 1: Get org repos to build visibility map
-    const repoVisibility = new Map<string, boolean>(); // name -> isPrivate
-    let repoPage = 1;
-    while (true) {
-      const repos = await githubFetch(
-        `https://api.github.com/orgs/${ORG}/repos?per_page=100&page=${repoPage}`,
-        token
-      );
-      if (repos.length === 0) break;
-      for (const repo of repos) {
-        repoVisibility.set(repo.name, repo.private);
-      }
-      if (repos.length < 100) break;
-      repoPage++;
-    }
-
-    // Step 2: Fetch merged PRs
+    // Step 1: Fetch merged PRs
     const prs = await fetchAllSearchResults(
       `https://api.github.com/search/issues?q=author:${AUTHOR}+org:${ORG}+type:pr+is:merged`,
       token
     );
 
-    // Step 3: Fetch commits
+    // Step 2: Fetch commits
     const commits = await fetchAllSearchResults(
       `https://api.github.com/search/commits?q=author:${AUTHOR}+org:${ORG}`,
       token,
       "application/vnd.github.cloak-preview+json"
     );
 
-    // Step 4: Group by repo
+    // Step 3: Group by repo
     // PR repo extraction: repository_url ends with /repos/{org}/{repo}
     const prsByRepo = new Map<string, Date[]>();
     for (const pr of prs) {
@@ -197,63 +181,42 @@ export async function fetchContributions(): Promise<OrgContributions | null> {
       );
     }
 
-    // Step 5: Build repo list with counts
+    // Step 4: Build repo list with counts
     const allRepoNames = new Set([...prsByRepo.keys(), ...commitsByRepo.keys()]);
-    const publicRepos: RepoContributions[] = [];
-    let privateCount = 0;
-    let privatePrs: ContributionCounts = { ...zeroCounts };
-    let privateCommits: ContributionCounts = { ...zeroCounts };
+    const repos: RepoContributions[] = [];
 
     for (const repoName of allRepoNames) {
       const prDates = prsByRepo.get(repoName) || [];
       const commitDates = commitsByRepo.get(repoName) || [];
-      const prCounts = buildCounts(prDates);
-      const commitCounts = buildCounts(commitDates);
-
-      const isPrivate = repoVisibility.get(repoName) ?? false;
-
-      if (isPrivate) {
-        privateCount++;
-        privatePrs = addCounts(privatePrs, prCounts);
-        privateCommits = addCounts(privateCommits, commitCounts);
-      } else {
-        publicRepos.push({
-          name: repoName,
-          url: `https://github.com/${ORG}/${repoName}`,
-          prs: prCounts,
-          commits: commitCounts,
-        });
-      }
+      repos.push({
+        name: repoName,
+        url: `https://github.com/${ORG}/${repoName}`,
+        prs: buildCounts(prDates),
+        commits: buildCounts(commitDates),
+      });
     }
 
-    // Sort public repos by total contributions (PRs + commits) descending
-    publicRepos.sort(
+    // Sort repos by total contributions (PRs + commits) descending
+    repos.sort(
       (a, b) =>
         b.prs.total + b.commits.total - (a.prs.total + a.commits.total)
     );
 
-    // Step 6: Calculate totals
+    // Step 5: Calculate totals
     let totalPrs: ContributionCounts = { ...zeroCounts };
     let totalCommits: ContributionCounts = { ...zeroCounts };
-    for (const repo of publicRepos) {
+    for (const repo of repos) {
       totalPrs = addCounts(totalPrs, repo.prs);
       totalCommits = addCounts(totalCommits, repo.commits);
     }
-    totalPrs = addCounts(totalPrs, privatePrs);
-    totalCommits = addCounts(totalCommits, privateCommits);
 
     const result: OrgContributions = {
       lastUpdated: new Date().toISOString(),
-      repos: publicRepos,
-      privateRepos: {
-        count: privateCount,
-        prs: privatePrs,
-        commits: privateCommits,
-      },
+      repos,
       totals: {
         prs: totalPrs,
         commits: totalCommits,
-        repoCount: publicRepos.length + privateCount,
+        repoCount: repos.length,
       },
     };
 

@@ -52,13 +52,6 @@ function pluralize(count: number, singular: string): string {
             <span class="gh-count">{pluralize(repo.prs.total, "PR")}</span>
           </li>
         ))}
-      {contributions.privateRepos.count > 0 && contributions.privateRepos.prs.total > 0 && (
-        <li class="gh-repo-item gh-private">
-          <span>Private repositories ({contributions.privateRepos.count})</span>
-          <span class="gh-dots"></span>
-          <span class="gh-count">{pluralize(contributions.privateRepos.prs.total, "PR")}</span>
-        </li>
-      )}
     </ul>
   </div>
 
@@ -84,13 +77,6 @@ function pluralize(count: number, singular: string): string {
             <span class="gh-count">{pluralize(repo.commits.total, "commit")}</span>
           </li>
         ))}
-      {contributions.privateRepos.count > 0 && contributions.privateRepos.commits.total > 0 && (
-        <li class="gh-repo-item gh-private">
-          <span>Private repositories ({contributions.privateRepos.count})</span>
-          <span class="gh-dots"></span>
-          <span class="gh-count">{pluralize(contributions.privateRepos.commits.total, "commit")}</span>
-        </li>
-      )}
     </ul>
   </div>
 </div>
@@ -210,12 +196,6 @@ function pluralize(count: number, singular: string): string {
 
   .gh-repo-item a {
     color: var(--color-primary);
-    white-space: nowrap;
-  }
-
-  .gh-private span:first-child {
-    color: var(--color-text-muted);
-    font-style: italic;
     white-space: nowrap;
   }
 

@@ -57,11 +57,6 @@ export interface RepoContributions {
 export interface OrgContributions {
   lastUpdated: string;
   repos: RepoContributions[];
-  privateRepos: {
-    count: number;
-    prs: ContributionCounts;
-    commits: ContributionCounts;
-  };
   totals: {
     prs: ContributionCounts;
     commits: ContributionCounts;
