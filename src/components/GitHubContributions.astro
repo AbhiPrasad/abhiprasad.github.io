@@ -1,0 +1,246 @@
+---
+import type { OrgContributions } from "../types/index";
+
+interface Props {
+  contributions: OrgContributions;
+}
+
+const { contributions } = Astro.props;
+
+const updatedDate = new Date(contributions.lastUpdated).toLocaleDateString(
+  "en-US",
+  { year: "numeric", month: "short", day: "numeric" }
+);
+
+function pluralize(count: number, singular: string): string {
+  return count === 1 ? `${count} ${singular}` : `${count} ${singular}s`;
+}
+---
+
+<div class="gh-contributions" data-view="prs">
+  <div class="gh-header">
+    <span class="gh-label">Open Source Contributions</span>
+  </div>
+
+  <div class="gh-controls">
+    <div class="gh-toggle">
+      <button class="gh-toggle-btn active" data-target="prs">Pull Requests</button>
+      <button class="gh-toggle-btn" data-target="commits">Commits</button>
+    </div>
+    <span class="gh-updated">Updated {updatedDate}</span>
+  </div>
+
+  {/* PR view */}
+  <div class="gh-view" data-type="prs">
+    <p class="gh-summary">
+      {pluralize(contributions.totals.prs.total, "PR")} merged across {pluralize(contributions.totals.repoCount, "repo")}
+    </p>
+    {(contributions.totals.prs.last30days > 0 || contributions.totals.prs.last7days > 0) && (
+      <p class="gh-recent">
+        Last 30 days: {pluralize(contributions.totals.prs.last30days, "PR")}
+        {" · "}
+        Last 7 days: {pluralize(contributions.totals.prs.last7days, "PR")}
+      </p>
+    )}
+    <ul class="gh-repo-list">
+      {contributions.repos
+        .filter((repo) => repo.prs.total > 0)
+        .map((repo) => (
+          <li class="gh-repo-item">
+            <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
+            <span class="gh-dots"></span>
+            <span class="gh-count">{pluralize(repo.prs.total, "PR")}</span>
+          </li>
+        ))}
+      {contributions.privateRepos.count > 0 && contributions.privateRepos.prs.total > 0 && (
+        <li class="gh-repo-item gh-private">
+          <span>Private repositories ({contributions.privateRepos.count})</span>
+          <span class="gh-dots"></span>
+          <span class="gh-count">{pluralize(contributions.privateRepos.prs.total, "PR")}</span>
+        </li>
+      )}
+    </ul>
+  </div>
+
+  {/* Commits view */}
+  <div class="gh-view" data-type="commits">
+    <p class="gh-summary">
+      {pluralize(contributions.totals.commits.total, "commit")} across {pluralize(contributions.totals.repoCount, "repo")}
+    </p>
+    {(contributions.totals.commits.last30days > 0 || contributions.totals.commits.last7days > 0) && (
+      <p class="gh-recent">
+        Last 30 days: {pluralize(contributions.totals.commits.last30days, "commit")}
+        {" · "}
+        Last 7 days: {pluralize(contributions.totals.commits.last7days, "commit")}
+      </p>
+    )}
+    <ul class="gh-repo-list">
+      {contributions.repos
+        .filter((repo) => repo.commits.total > 0)
+        .map((repo) => (
+          <li class="gh-repo-item">
+            <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
+            <span class="gh-dots"></span>
+            <span class="gh-count">{pluralize(repo.commits.total, "commit")}</span>
+          </li>
+        ))}
+      {contributions.privateRepos.count > 0 && contributions.privateRepos.commits.total > 0 && (
+        <li class="gh-repo-item gh-private">
+          <span>Private repositories ({contributions.privateRepos.count})</span>
+          <span class="gh-dots"></span>
+          <span class="gh-count">{pluralize(contributions.privateRepos.commits.total, "commit")}</span>
+        </li>
+      )}
+    </ul>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.gh-contributions').forEach((container) => {
+    container.querySelectorAll('.gh-toggle-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = (btn as HTMLElement).dataset.target;
+        if (!target) return;
+        container.setAttribute('data-view', target);
+        container.querySelectorAll('.gh-toggle-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+</script>
+
+<style>
+  .gh-contributions {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-primary);
+  }
+
+  .gh-header {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .gh-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .gh-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  .gh-toggle {
+    display: flex;
+    border: 1px solid var(--color-primary);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .gh-toggle-btn {
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    font-family: inherit;
+  }
+
+  .gh-toggle-btn:hover {
+    background: rgba(34, 139, 34, 0.1);
+  }
+
+  [data-theme="dark"] .gh-toggle-btn:hover {
+    background: rgba(60, 179, 113, 0.15);
+  }
+
+  .gh-toggle-btn.active {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .gh-updated {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .gh-summary {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+
+  .gh-recent {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .gh-repo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .gh-repo-item {
+    display: flex;
+    align-items: baseline;
+    padding: 4px 0;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="dark"] .gh-repo-item {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .gh-repo-item:last-child {
+    border-bottom: none;
+  }
+
+  .gh-repo-item a {
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  .gh-private span:first-child {
+    color: var(--color-text-muted);
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .gh-dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--color-text-muted);
+    margin: 0 var(--spacing-sm);
+    min-width: 20px;
+    opacity: 0.4;
+    position: relative;
+    top: -3px;
+  }
+
+  .gh-count {
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  /* View toggling */
+  .gh-contributions[data-view="prs"] .gh-view[data-type="commits"] {
+    display: none;
+  }
+
+  .gh-contributions[data-view="commits"] .gh-view[data-type="prs"] {
+    display: none;
+  }
+</style>

@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import work from "../data/work.json";
+import { fetchContributions } from "../utils/fetchContributions";
+import GitHubContributions from "../components/GitHubContributions.astro";
 
 // Sort work by end date (current/most recent first)
 const sortedWork = [...work].sort((a, b) => {
@@ -13,6 +15,8 @@ function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
 }
+
+const contributions = await fetchContributions();
 ---
 
 <Layout
@@ -40,6 +44,9 @@ function formatDate(dateStr: string): string {
                 <li>{highlight}</li>
               ))}
             </ul>
+          )}
+          {job.company === "Braintrust" && contributions && (
+            <GitHubContributions contributions={contributions} />
           )}
         </article>
       ))

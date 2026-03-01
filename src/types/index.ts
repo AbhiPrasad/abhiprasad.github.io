@@ -40,3 +40,31 @@ export interface SocialLinks {
   sessionize?: string;
   email?: string;
 }
+
+export interface ContributionCounts {
+  total: number;
+  last7days: number;
+  last30days: number;
+}
+
+export interface RepoContributions {
+  name: string;
+  url: string;
+  prs: ContributionCounts;
+  commits: ContributionCounts;
+}
+
+export interface OrgContributions {
+  lastUpdated: string;
+  repos: RepoContributions[];
+  privateRepos: {
+    count: number;
+    prs: ContributionCounts;
+    commits: ContributionCounts;
+  };
+  totals: {
+    prs: ContributionCounts;
+    commits: ContributionCounts;
+    repoCount: number;
+  };
+}

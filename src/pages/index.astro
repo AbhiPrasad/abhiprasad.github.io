@@ -8,6 +8,8 @@ import {
   enrichBlogPostsWithImages,
   enrichPresentationsWithThumbnails,
 } from "../utils/fetchOgImage";
+import { fetchContributions } from "../utils/fetchContributions";
+import GitHubContributions from "../components/GitHubContributions.astro";
 
 // Load all presentation files from the presentations directory
 const presentationFiles = import.meta.glob("../data/presentations/*.json", {
@@ -42,6 +44,9 @@ const displayedProjects = projects.slice(0, 3);
 
 // Fetch OG images for displayed blog posts
 const displayedBlogWithImages = await enrichBlogPostsWithImages(displayedBlog);
+
+// Fetch GitHub contributions for Braintrust
+const contributions = await fetchContributions();
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -351,6 +356,9 @@ const personSchema = {
                 <li>{highlight}</li>
               ))}
             </ul>
+          )}
+          {job.company === "Braintrust" && contributions && (
+            <GitHubContributions contributions={contributions} />
           )}
         </article>
       ))
