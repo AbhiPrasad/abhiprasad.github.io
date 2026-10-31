@@ -1,0 +1,43 @@
+---
+import PresentationLayout from "../../layouts/PresentationLayout.astro";
+
+import deck from "../../data/decks/hello-world.json";
+---
+
+<PresentationLayout title={deck.title} description={deck.description}>
+  <section>
+    <p class="eyebrow">A test presentation</p>
+    <h1>Hello, slides!</h1>
+    <p>Abhijeet Prasad</p>
+    <p><small>Use the arrow keys, press Space, or swipe to begin.</small></p>
+  </section>
+
+  <section>
+    <h2>A home for ideas</h2>
+    <p>This is a dummy deck. The next real talk starts here.</p>
+    <p>Each slide gets its own URL, so you can share exactly where you are.</p>
+  </section>
+
+  <section>
+    <h2>One thing at a time</h2>
+    <p>Press Space or the right arrow to reveal each item.</p>
+    <ul>
+      <li class="fragment">Start with an idea.</li>
+      <li class="fragment">Make it concrete.</li>
+      <li class="fragment">Share what you learned.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Take a look around</h2>
+    <p>Press <strong>Esc</strong> for an overview of every slide.</p>
+    <p>Press <strong>F</strong> for fullscreen, or <strong>?</strong> for help.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">That's a wrap</p>
+    <h2>Ready for the real thing.</h2>
+    <p><a href="/slides/">Back to all slide decks &rarr;</a></p>
+    <p><a href="#/">Replay this presentation</a></p>
+  </section>
+</PresentationLayout>

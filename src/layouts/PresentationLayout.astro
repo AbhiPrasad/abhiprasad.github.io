@@ -1,0 +1,88 @@
+---
+import "reveal.js/reveal.css";
+import "reveal.js/theme/white.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <title>{title} - Abhijeet Prasad</title>
+  </head>
+  <body>
+    <a class="back-link" href="/slides/">&larr; All slide decks</a>
+    <div class="reveal">
+      <div class="slides">
+        <slot />
+      </div>
+    </div>
+    <noscript><p>Enable JavaScript to use slide navigation.</p></noscript>
+    <script>
+      import Reveal from "reveal.js";
+
+      const deck = new Reveal({
+        hash: true,
+        controls: true,
+        progress: true,
+        slideNumber: "c/t",
+        transition: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "none"
+          : "slide",
+      });
+      deck.initialize();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --r-main-font: system-ui, sans-serif;
+    --r-heading-font: system-ui, sans-serif;
+    --r-heading-color: #1a6b1a;
+    --r-link-color: #228b22;
+    --r-link-color-hover: #1a6b1a;
+    --r-selection-background-color: #daa520;
+    --r-heading-text-transform: none;
+  }
+
+  .back-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    background: white;
+    color: #1a6b1a;
+    font: 0.875rem system-ui, sans-serif;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  .reveal .eyebrow {
+    color: #666;
+    font-size: 0.5em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  @media print {
+    .back-link {
+      display: none;
+    }
+  }
+</style>

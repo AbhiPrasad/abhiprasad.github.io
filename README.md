@@ -34,6 +34,21 @@ A personal website built with [Astro](https://astro.build), featuring presentati
         └── deploy.yml          # GitHub Pages deployment
 ```
 
+## Hosted slide decks
+
+Visit `/slides/` for the Reveal.js presentation index, or `/slides/hello-world/`
+for the dummy deck. Reveal.js assets are bundled locally with the site.
+
+To add a deck, copy `src/pages/slides/hello-world.astro` and
+`src/data/decks/hello-world.json`, giving both files the same new filename.
+Update the JSON import in the Astro file and the metadata (`title`,
+`description`, and `date` in `YYYY-MM-DD` format), then write slides as
+`<section>` elements inside `PresentationLayout`. The index automatically lists
+the JSON entries, newest first; the filename becomes the URL slug.
+
+The shared layout lives in `src/layouts/PresentationLayout.astro`. Arrow keys,
+Space, and swipes navigate; Esc opens the overview; F enters fullscreen.
+
 ## Data Files
 
 ### presentations.json
