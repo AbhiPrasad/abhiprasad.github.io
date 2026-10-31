@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/space-grotesk/space-grotesk-latin.woff2") format("woff2");
+}
+
+body[data-deck-theme="braintrust"] {
+  --r-main-font: "Space Grotesk", system-ui, sans-serif;
+  --r-heading-font: "Space Grotesk", system-ui, sans-serif;
+  --r-background-color: #000;
+  --r-main-color: #f5f5f2;
+  --r-heading-color: #f5f5f2;
+  --r-link-color: #a5baff;
+  --r-link-color-hover: #ccff80;
+  --r-selection-background-color: #2c1fea;
+  --r-heading-font-weight: 500;
+  --r-heading-letter-spacing: -0.05em;
+  --deck-blue: #638cf3;
+  --deck-neon: #ccff80;
+  background: var(--r-background-color);
+  color: var(--r-main-color);
+}
+
+[data-deck-theme="braintrust"] .reveal .slides {
+  text-align: left;
+}
+
+[data-deck-theme="braintrust"] .reveal .title-slide {
+  box-sizing: border-box;
+  padding: 50px 54px;
+}
+
+[data-deck-theme="braintrust"] .title-accent {
+  width: 76px;
+  height: 7px;
+  margin-bottom: 44px;
+  background: var(--deck-neon);
+  box-shadow: 28px 0 0 #2c1fea;
+}
+
+[data-deck-theme="braintrust"] .reveal h1 {
+  margin: 0;
+  font-size: 112px;
+  line-height: 1.12;
+}
+
+[data-deck-theme="braintrust"] .title-slide h1 span {
+  color: var(--deck-blue);
+}
+
+[data-deck-theme="braintrust"] .reveal .presenter {
+  margin: 54px 0 0;
+  font-size: 34px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+[data-deck-theme="braintrust"] .back-link {
+  background: transparent;
+  color: #a3a3ad;
+}
+
+[data-deck-theme="braintrust"] .back-link:hover {
+  color: var(--deck-neon);
+}
+
+[data-deck-theme="braintrust"] .reveal .slide-number {
+  background: transparent;
+  color: #a3a3ad;
+}
+
+[data-deck-theme="braintrust"] a:focus-visible {
+  outline: 2px solid var(--deck-neon);
+  outline-offset: 5px;
+}

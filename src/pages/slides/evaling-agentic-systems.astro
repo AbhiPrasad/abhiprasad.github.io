@@ -1,0 +1,13 @@
+---
+import PresentationLayout from "../../layouts/PresentationLayout.astro";
+import deck from "../../data/decks/evaling-agentic-systems.json";
+import "../../styles/braintrust-slides.css";
+---
+
+<PresentationLayout title={deck.title} description={deck.description} theme="braintrust">
+  <section class="title-slide">
+    <div class="title-accent" aria-hidden="true"></div>
+    <h1>Evaling<br /><span>Agentic Systems</span></h1>
+    <p class="presenter">Abhijeet Prasad</p>
+  </section>
+</PresentationLayout>

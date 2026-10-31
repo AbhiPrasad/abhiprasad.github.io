@@ -5,9 +5,10 @@ import "reveal.js/theme/white.css";
 interface Props {
   title: string;
   description: string;
+  theme?: "default" | "braintrust";
 }
 
-const { title, description } = Astro.props;
+const { title, description, theme = "default" } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,7 +21,7 @@ const { title, description } = Astro.props;
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <title>{title} - Abhijeet Prasad</title>
   </head>
-  <body>
+  <body data-deck-theme={theme}>
     <a class="back-link" href="/slides/">&larr; All slide decks</a>
     <div class="reveal">
       <div class="slides">
@@ -32,6 +33,9 @@ const { title, description } = Astro.props;
       import Reveal from "reveal.js";
 
       const deck = new Reveal({
+        ...(document.body.dataset.deckTheme === "braintrust"
+          ? { width: 1280, height: 720 }
+          : {}),
         hash: true,
         controls: true,
         progress: true,
