@@ -1,0 +1,71 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+interface DeckModule {
+  default: {
+    title: string;
+    description: string;
+    date: string;
+  };
+}
+
+const modules = import.meta.glob<DeckModule>("../../data/decks/*.json", {
+  eager: true,
+});
+const decks = Object.entries(modules)
+  .map(([path, { default: deck }]) => ({
+    ...deck,
+    href: `/slides/${path.split("/").pop()!.replace(".json", "")}/`,
+  }))
+  .sort((a, b) => b.date.localeCompare(a.date));
+---
+
+<Layout
+  title="Slide Decks - Abhijeet Prasad"
+  description="Presentations by Abhijeet Prasad, built with Reveal.js and hosted here."
+>
+  <header>
+    <a href="/" class="back-link">&larr; Back to home</a>
+    <h1>Slide Decks</h1>
+    <p class="description">
+      Presentations built with <a href="https://revealjs.com/">Reveal.js</a>.
+      Open a deck and use the arrow keys or swipe to explore.
+    </p>
+  </header>
+
+  <section aria-label="Presentations">
+    {decks.map((deck) => (
+      <article class="card">
+        <h2><a href={deck.href}>{deck.title}</a></h2>
+        <p class="meta">
+          <time datetime={deck.date}>
+            {new Date(`${deck.date}T00:00:00Z`).toLocaleDateString("en-US", {
+              year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+            })}
+          </time>
+        </p>
+        <p class="description">{deck.description}</p>
+        <div class="links"><a href={deck.href}>Open presentation &rarr;</a></div>
+      </article>
+    ))}
+  </section>
+</Layout>
+
+<style>
+  header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.875rem;
+  }
+
+  .card h2 {
+    padding: 0;
+    border: none;
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+  }
+</style>

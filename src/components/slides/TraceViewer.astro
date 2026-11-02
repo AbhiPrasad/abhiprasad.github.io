@@ -1,0 +1,102 @@
+---
+interface Props {
+  selected?: "run" | "tool" | "score" | "classifier";
+  mode?: "logs" | "experiment";
+}
+const { selected = "run", mode = "logs" } = Astro.props;
+const experiment = mode === "experiment";
+const rows = experiment ? [
+  { name: "Refund case #123", type: "EVAL", depth: 0, duration: "1.81 s", target: "run" },
+  { name: "Store assistant", type: "TASK", depth: 1, duration: "1.8 s" },
+  { name: "Choose next step", type: "LLM", depth: 2, duration: "400 ms" },
+  { name: "Policy helper", type: "AGENT", depth: 2, duration: "500 ms" },
+  { name: "Read instructions", type: "LLM", depth: 3, duration: "200 ms" },
+  { name: "lookup_policy", type: "TOOL", depth: 3, duration: "80 ms" },
+  { name: "Choose next step", type: "LLM", depth: 2, duration: "400 ms" },
+  { name: "issue_refund", type: "TOOL", depth: 2, duration: "180 ms", target: "tool" },
+  { name: "Reply to customer", type: "LLM", depth: 2, duration: "300 ms" },
+  { name: "refund_action", type: "CLASSIFIER", depth: 1, duration: "1 ms", target: "classifier" },
+  { name: "refund_amount", type: "SCORE", depth: 1, duration: "1 ms", target: "score" },
+] : [
+  { name: "Store assistant", type: "RUN", depth: 0, duration: "1.8 s", target: "run" },
+  { name: "Choose next step", type: "LLM", depth: 1, duration: "400 ms" },
+  { name: "Policy helper", type: "AGENT", depth: 1, duration: "500 ms" },
+  { name: "Read instructions", type: "LLM", depth: 2, duration: "200 ms" },
+  { name: "lookup_policy", type: "TOOL", depth: 2, duration: "80 ms" },
+  { name: "Choose next step", type: "LLM", depth: 1, duration: "400 ms" },
+  { name: "issue_refund", type: "TOOL", depth: 1, duration: "180 ms", target: "tool" },
+  { name: "Reply to customer", type: "LLM", depth: 1, duration: "300 ms" },
+];
+---
+<div class="trace-viewer" data-trace-viewer>
+  <div class="tv-toolbar"><span class="tv-live-dot" aria-hidden="true"></span><strong>{experiment ? "Experiment · refund-v1" : "Refund request"}</strong><span class="tv-run-id">{experiment ? "case / 123 · trial 1" : "trace / 7f2a"}</span><span class="tv-example">Illustrative trace</span></div>
+  <div class="tv-body">
+    <div class="tv-tree" aria-label="Trace spans">
+      <div class="tv-tree-heading"><span>SPAN</span><span>DURATION</span></div>
+      {rows.map(row => row.target ? (
+        <button type="button" class:list={["tv-row", { "tv-selected": row.target === selected }]} style={`--depth: ${row.depth}`} data-span-target={row.target} aria-pressed={row.target === selected}>
+          <span class="tv-branch" aria-hidden="true">{row.depth ? "└" : "⌄"}</span><span class="tv-type" data-type={row.type}>{row.type}</span><span class="tv-name">{row.name}</span><span class="tv-duration">{row.duration}</span>
+        </button>
+      ) : (
+        <div class="tv-row" style={`--depth: ${row.depth}`}><span class="tv-branch" aria-hidden="true">└</span><span class="tv-type" data-type={row.type}>{row.type}</span><span class="tv-name">{row.name}</span><span class="tv-duration">{row.duration}</span></div>
+      ))}
+    </div>
+    <div class="tv-inspector" data-span-panel="run" hidden={selected !== "run"}>
+      <div class="tv-inspector-title"><span class="tv-type" data-type={experiment ? "EVAL" : "RUN"}>{experiment ? "EVAL" : "RUN"}</span><strong>{experiment ? "Refund case #123" : "Store assistant"}</strong></div>
+      <dl>
+        {experiment ? <>
+          <div><dt>INPUT · ORDER FIXTURE</dt><dd>Order #123 · $465 · purchased 45 days ago</dd></div>
+          <div><dt>EXPECTED · POLICY v1</dt><dd>$0 refunded · refunds allowed through day 30</dd></div>
+          <div><dt>RECORDED OUTPUT</dt><dd class="tv-mono">refunded: 465</dd></div>
+          <div><dt>CHILD SPANS</dt><dd>Task execution + numeric score + classification</dd></div>
+        </> : <>
+          <div><dt>USER REQUEST</dt><dd>Refund $465 for order #123</dd></div>
+          <div><dt>SYSTEM INSTRUCTIONS</dt><dd>Help customers. Follow the store’s refund policy.</dd></div>
+          <div><dt>AVAILABLE TOOLS</dt><dd class="tv-mono">lookup_order · lookup_policy<br />issue_refund · policy_helper</dd></div>
+          <div><dt>FINAL OUTPUT</dt><dd>“Done — I’ve sent you $465.”</dd></div>
+        </>}
+      </dl>
+    </div>
+    <div class="tv-inspector" data-span-panel="tool" hidden={selected !== "tool"}>
+      <div class="tv-inspector-title"><span class="tv-type" data-type="TOOL">TOOL</span><strong>issue_refund</strong></div>
+      <dl>
+        <div><dt>INPUT ARGUMENTS</dt><dd class="tv-mono">order_id: 123<br />amount: 465</dd></div>
+        <div><dt>RETURNED RESULT</dt><dd class="tv-mono">status: "success"<br />refund_id: "rf_901"</dd></div>
+        <div><dt>RECORDED EFFECT</dt><dd>{experiment ? "$465 recorded by the simulated payment tool" : "$465 sent to the customer"}</dd></div>
+      </dl>
+    </div>
+    {experiment && <>
+      <div class="tv-inspector" data-span-panel="score" hidden={selected !== "score"}>
+        <div class="tv-inspector-title"><span class="tv-type" data-type="SCORE">SCORE</span><strong>refund_amount</strong></div>
+        <dl>
+          <div><dt>RECORDED / EXPECTED</dt><dd>$465 / $0</dd></div>
+          <div><dt>NUMERIC SCORE</dt><dd>0 · Fail</dd></div>
+        </dl>
+      </div>
+      <div class="tv-inspector" data-span-panel="classifier" hidden={selected !== "classifier"}>
+        <div class="tv-inspector-title"><span class="tv-type" data-type="CLASSIFIER">CLASSIFIER</span><strong>refund_action</strong></div>
+        <dl>
+          <div><dt>LABEL ID</dt><dd class="tv-mono">payment_sent</dd></div>
+        </dl>
+      </div>
+    </>}
+  </div>
+  <div class="tv-footer"><span>model: store-model-v2 · prompt: v3</span><span>1,240 tokens · $0.004 · no exceptions</span></div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>("[data-trace-viewer]").forEach(viewer => {
+    viewer.querySelectorAll<HTMLButtonElement>("[data-span-target]").forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.spanTarget;
+        viewer.querySelectorAll<HTMLButtonElement>("[data-span-target]").forEach(row => {
+          const selected = row.dataset.spanTarget === target;
+          row.classList.toggle("tv-selected", selected);
+          row.setAttribute("aria-pressed", String(selected));
+        });
+        viewer.querySelectorAll<HTMLElement>("[data-span-panel]").forEach(panel => {
+          panel.hidden = panel.dataset.spanPanel !== target;
+        });
+      });
+    });
+  });
+</script>

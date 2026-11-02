@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
-    "astro": "^7.3.3"
+    "astro": "^7.3.3",
+    "reveal.js": "^6.0.2"
   }
 }
