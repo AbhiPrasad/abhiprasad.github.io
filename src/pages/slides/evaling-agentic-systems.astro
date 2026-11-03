@@ -281,7 +281,7 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
         <strong>Single call</strong>
         <div class="progression-diagram agent-loop">
           <svg viewBox="0 0 250 220" role="img" aria-label="A prompt goes to the model, which returns an answer">
-            <defs><marker id="single-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ccff80" /></marker></defs>
+            <defs><marker id="single-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: var(--bt-ccff80)" /></marker></defs>
             <rect class="agent-tool" x="65" y="10" width="120" height="44" rx="6" /><text x="125" y="39">Prompt</text>
             <path class="agent-loop-path" d="M125 54 V83" marker-end="url(#single-arrow)" />
             <rect class="agent-model" x="65" y="85" width="120" height="44" rx="6" /><text x="125" y="114">Model</text>
@@ -295,7 +295,7 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
         <strong>Conversation</strong>
         <div class="progression-diagram agent-loop">
           <svg viewBox="0 0 250 220" role="img" aria-label="The user sends messages to the model, which replies over multiple turns">
-            <defs><marker id="conversation-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ccff80" /></marker></defs>
+            <defs><marker id="conversation-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: var(--bt-ccff80)" /></marker></defs>
             <rect class="agent-tool" x="65" y="30" width="120" height="44" rx="6" /><text x="125" y="59">User</text>
             <rect class="agent-model" x="65" y="150" width="120" height="44" rx="6" /><text x="125" y="179">Model</text>
             <path class="agent-loop-path" d="M185 52 H210 V172 H185" marker-end="url(#conversation-arrow)" />
@@ -310,8 +310,8 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
         <div class="progression-diagram agent-loop">
           <svg viewBox="0 0 320 220" role="img" aria-label="The user sends messages to the model and receives replies. The model can send tool calls and receive results, repeating as needed">
             <defs>
-              <marker id="agent-message-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c4afff" /></marker>
-              <marker id="agent-tool-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ccff80" /></marker>
+              <marker id="agent-message-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: var(--bt-c4afff)" /></marker>
+              <marker id="agent-tool-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: var(--bt-ccff80)" /></marker>
             </defs>
             <rect class="agent-input" x="105" y="2" width="110" height="34" rx="6" /><text x="160" y="25">User</text>
             <rect class="agent-model" x="90" y="83" width="140" height="50" rx="6" /><text x="160" y="115">Model</text>
@@ -520,7 +520,7 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
     <h2>Task: <span>run the agent</span></h2>
     <p>The task is the application behavior under test.</p>
     <div class="annotated-eval">
-      <div class="eval-code-panel"><div class="eval-code-heading">task.ts</div><Code code={refundTaskCode} lang="ts" theme="github-dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">task.ts</div><Code code={refundTaskCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
       <dl class="eval-code-notes">
         <div><dt>INPUT</dt><dd>Seed tools with the saved order and policy.</dd></div>
         <div><dt>ISOLATION</dt><dd>Reset store state each trial.</dd></div>
@@ -554,14 +554,14 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
     <h2>Deterministic: <span>write the rule</span></h2>
     <p>Use recorded tool results to score quality and label the action.</p>
     <div class="autoevals-code-examples deterministic-examples">
-      <div class="eval-code-panel"><div class="eval-code-heading">numeric_scorer.ts</div><Code code={refundScorerCode} lang="ts" theme="github-dark" /></div>
-      <div class="eval-code-panel"><div class="eval-code-heading">classifier.ts</div><Code code={refundClassifierCode} lang="ts" theme="github-dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">numeric_scorer.ts</div><Code code={refundScorerCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">classifier.ts</div><Code code={refundClassifierCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
     </div>
   </section>
 
   <section class="planning-slide visual-slide loop-slide">
     <h2>Judge: <span>grade the trace</span></h2>
-    <div class="eval-code-panel judge-code-panel"><div class="eval-code-heading">refund_judge.ts</div><Code code={refundJudgeCode} lang="ts" theme="github-dark" /></div>
+    <div class="eval-code-panel judge-code-panel"><div class="eval-code-heading">refund_judge.ts</div><Code code={refundJudgeCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
     <p class="planning-source"><a href="https://docs.braintrust.dev/evaluate/llm-as-a-judge">Trace-level judges ↗</a></p>
   </section>
 
@@ -613,10 +613,10 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
   <section class="planning-slide visual-slide loop-slide">
     <h2>Autoevals: <span>checks in action</span></h2>
     <div class="autoevals-code-examples autoevals-four-examples">
-      <div class="eval-code-panel"><div class="eval-code-heading">exact_match.ts</div><Code code={autoevalsMatchCode} lang="ts" theme="github-dark" /></div>
-      <div class="eval-code-panel"><div class="eval-code-heading">valid_json.ts</div><Code code={autoevalsFormatCode} lang="ts" theme="github-dark" /></div>
-      <div class="eval-code-panel"><div class="eval-code-heading">levenshtein.ts</div><Code code={autoevalsLevenshteinCode} lang="ts" theme="github-dark" /></div>
-      <div class="eval-code-panel"><div class="eval-code-heading">json_diff.ts</div><Code code={autoevalsJSONDiffCode} lang="ts" theme="github-dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">exact_match.ts</div><Code code={autoevalsMatchCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">valid_json.ts</div><Code code={autoevalsFormatCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">levenshtein.ts</div><Code code={autoevalsLevenshteinCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">json_diff.ts</div><Code code={autoevalsJSONDiffCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
     </div>
   </section>
 
@@ -629,7 +629,7 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
         <div class="eval-task"><dt>TASK · task</dt><dd>Run the agent with simulated tools.</dd></div>
         <div class="eval-scorers"><dt>SCORERS · scores / classifiers</dt><dd>Amount score and action label.</dd></div>
       </dl>
-      <div class="eval-code-panel eval-colored-code"><div class="eval-code-heading">refund.eval.ts</div><div class="eval-code-body"><div class="eval-code-markers" aria-hidden="true"><i></i><i></i><i></i></div><Code code={refundEvalCode} lang="ts" theme="github-dark" /></div></div>
+      <div class="eval-code-panel eval-colored-code"><div class="eval-code-heading">refund.eval.ts</div><div class="eval-code-body"><div class="eval-code-markers" aria-hidden="true"><i></i><i></i><i></i></div><Code code={refundEvalCode} lang="ts" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div></div>
     </div>
   </section>
 
@@ -650,7 +650,7 @@ const snapshotDate = new Date(`${contributions.capturedOn}T00:00:00Z`)
     <h2>Define expected agent behavior</h2>
     <p>Write down what good behavior looks like across runs.</p>
     <div class="annotated-eval behavior-spec">
-      <div class="eval-code-panel"><div class="eval-code-heading">.agents/behaviors/refund-eligibility/BEHAVIOR.md</div><Code code={refundBehavior} lang="markdown" theme="github-dark" /></div>
+      <div class="eval-code-panel"><div class="eval-code-heading">.agents/behaviors/refund-eligibility/BEHAVIOR.md</div><Code code={refundBehavior} lang="markdown" themes={{ light: "github-light", dark: "github-dark" }} defaultColor="dark" /></div>
       <dl class="eval-code-notes">
         <div><dt>DEFINE</dt><dd>Describe the behavior and its failure modes.</dd></div>
         <div><dt>REVIEW</dt><dd>Use it to inspect traces and design evals.</dd></div>

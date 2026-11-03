@@ -4,7 +4,7 @@ const { caption } = Astro.props;
 ---
 <div class="eval-flywheel">
   <svg viewBox="0 0 1080 330" role="img" aria-label="Observe: capture runs. Analyze: find patterns and curate cases. Evaluate: measure behavior. Improve: test changes and ship. Then return to Observe.">
-    <defs><marker id="flywheel-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ccff80" /></marker></defs>
+    <defs><marker id="flywheel-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" style="fill: var(--bt-ccff80)" /></marker></defs>
     <g class="flywheel-links" marker-end="url(#flywheel-arrow)">
       <path d="M425 70 H655" /><path d="M850 120 V210" />
       <path d="M655 260 H425" /><path d="M230 210 V120" />

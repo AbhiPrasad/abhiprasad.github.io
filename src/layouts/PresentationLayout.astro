@@ -20,9 +20,23 @@ const { title, description, theme = "default" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <title>{title} - Abhijeet Prasad</title>
+    {theme === "braintrust" && (
+      <script is:inline>
+        try {
+          if (localStorage.getItem("deck-color-scheme") === "light") {
+            document.documentElement.dataset.colorScheme = "light";
+          }
+        } catch {}
+      </script>
+    )}
   </head>
   <body data-deck-theme={theme}>
     <a class="back-link" href="/slides/">&larr; All slide decks</a>
+    {theme === "braintrust" && (
+      <button type="button" class="color-scheme-toggle" aria-pressed="false" title="Toggle light/dark theme (L)">
+        <span class="color-scheme-toggle-label">Light theme</span>
+      </button>
+    )}
     <div class="reveal">
       <div class="slides">
         <slot />
@@ -65,6 +79,27 @@ const { title, description, theme = "default" } = Astro.props;
         footerSource.replaceChildren(...Array.from(source?.childNodes ?? [], (node) => node.cloneNode(true)));
         footerSource.hidden = !source;
       };
+      const schemeToggle = document.querySelector<HTMLButtonElement>(".color-scheme-toggle");
+      const root = document.documentElement;
+      const applyScheme = (scheme: "light" | "dark") => {
+        if (scheme === "light") root.dataset.colorScheme = "light";
+        else delete root.dataset.colorScheme;
+        if (schemeToggle) {
+          schemeToggle.setAttribute("aria-pressed", String(scheme === "light"));
+          schemeToggle.querySelector(".color-scheme-toggle-label")!.textContent =
+            scheme === "light" ? "Dark theme" : "Light theme";
+        }
+      };
+      if (schemeToggle) {
+        applyScheme(root.dataset.colorScheme === "light" ? "light" : "dark");
+        const toggleScheme = () => {
+          const next = root.dataset.colorScheme === "light" ? "dark" : "light";
+          applyScheme(next);
+          try { localStorage.setItem("deck-color-scheme", next); } catch {}
+        };
+        schemeToggle.addEventListener("click", toggleScheme);
+        deck.addKeyBinding({ keyCode: 76, key: "L", description: "Toggle light/dark theme" }, toggleScheme);
+      }
       deck.on("ready", updateFooter);
       deck.on("slidechanged", updateFooter);
       deck.initialize();
