@@ -1,0 +1,133 @@
+% Build with: tectonic resume.tex
+\documentclass[11pt,letterpaper]{article}
+\usepackage[left=48bp,right=42bp,top=23bp,bottom=26bp]{geometry}
+\usepackage[default]{sourcesanspro}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[pdfusetitle,hidelinks]{hyperref}
+
+\title{Abhijeet Prasad — Résumé}
+\author{Abhijeet Prasad}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\definecolor{linkblue}{HTML}{005EB8}
+\definecolor{bulletblue}{HTML}{141453}
+\setlist[itemize]{
+  leftmargin=22bp,
+  labelsep=8bp,
+  label={\textcolor{bulletblue}{\scriptsize\textbullet}},
+  nosep,
+}
+
+\newcommand{\resumeSection}[1]{%
+  \par\addvspace{5bp}%
+  {\bfseries\MakeUppercase{#1}}\par\nobreak
+  \kern 3bp\nointerlineskip
+  \moveright -5bp\vbox{\hrule width \dimexpr\linewidth+10bp\relax height 0.45bp}%
+  \nobreak\vspace{3bp}\nointerlineskip
+}
+\newcommand{\employer}[2]{%
+  \par\addvspace{4bp}%
+  {\fontsize{13bp}{15bp}\selectfont\bfseries #1}\hfill{\bfseries #2}\par\nobreak
+}
+\newcommand{\role}[2]{%
+  \textit{#1}\hfill{\fontsize{11bp}{14bp}\selectfont\itshape #2}\par\nobreak
+}
+\newcommand{\resumeLink}[2]{\href{#1}{\textcolor{linkblue}{\underline{#2}}}}
+\newcommand{\workSample}[4]{%
+  \makebox[61bp][l]{#1}\textbf{#2}\hfill\resumeLink{#4}{#3}\par
+}
+
+\begin{document}
+\fontsize{12pt}{14.65bp}\selectfont
+
+\begin{minipage}[c]{0.52\linewidth}
+  \fontsize{41bp}{44bp}\selectfont Abhijeet Prasad
+\end{minipage}\hfill
+\begin{minipage}[c]{0.47\linewidth}
+  \raggedleft
+  \href{mailto:devabhiprasad@gmail.com}{devabhiprasad@gmail.com}\\
+  \href{https://abhijeetprasad.com/}{abhijeetprasad.com}\\
+  \href{https://github.com/AbhiPrasad}{github.com/AbhiPrasad}\\
+  \href{https://www.linkedin.com/in/abhijeet-prasad/}{linkedin.com/in/abhijeet-prasad}
+\end{minipage}\par
+
+\resumeSection{Skills}
+\makebox[74bp][l]{Languages}TypeScript/JavaScript, Python, Go, Rust\par
+\makebox[74bp][l]{Expertise}{\fontsize{11.5pt}{14.65bp}\selectfont
+  SDKs, MCP, observability (OpenTelemetry/OTLP), event ingestion, agent evals, benchmarking}\par
+\makebox[74bp][l]{Open Source}%
+\resumeLink{https://github.com/search?q=org:open-telemetry+author:AbhiPrasad+is:pr+is:merged\&type=pullrequests}{OpenTelemetry contributor}
+\enspace·\enspace
+\resumeLink{https://github.com/nodejs/diagnostics\#members}{Node.js Diagnostics Working Group member}\par
+
+\resumeSection{Experience}
+\employer{Braintrust}{Remote}
+\role{Team Lead: SDKs, CLI, MCP}{Feb 2026 -- Present}
+\begin{itemize}
+  \item Lead maintainer of Braintrust's
+    \resumeLink{https://github.com/braintrustdata/braintrust-sdk-python}{Python}
+    and \resumeLink{https://github.com/braintrustdata/braintrust-sdk-go}{Go} SDKs and the Braintrust MCP server.
+  \item Specced and built \resumeLink{https://www.braintrust.dev/blog/mcp-tracing}{MCP tracing} and deployed evals for MCP usage.
+  \item Implemented \resumeLink{https://www.braintrust.dev/blog/application-logs}{OpenTelemetry log ingestion}
+    so users can view application logs alongside agent traces.
+  \item Developed Braintrust's \resumeLink{https://github.com/braintrustdata/braintrust-coding-agent-plugins}{coding-agent instrumentation}
+    to capture traces, logs, and metrics\newline
+    across Claude Code, Codex, Cursor, Pi, and OpenCode.
+  \item Co-authored the \resumeLink{https://www.agentbehavior.dev/}{Agent Behavior spec}, an open standard for how AI agents should act across runs.
+\end{itemize}
+
+\employer{Sentry}{Toronto / Vienna}
+\role{Senior Software Engineer}{Feb 2023 -- Jan 2026}
+\begin{itemize}
+  \item Drove \resumeLink{https://github.com/getsentry/sentry/discussions/40712}{OpenTelemetry support} across Sentry's client infrastructure and tracing SDKs.
+  \item Designed the \resumeLink{https://develop.sentry.dev/sdk/telemetry/logs/}{Sentry Logs SDK specification} for structured logs and trace correlation.
+  \item Maintained the open-source \resumeLink{https://github.com/getsentry/sentry-javascript}{Sentry JavaScript SDK}, used by over 13,000 organizations.
+\end{itemize}
+\vspace{3bp}
+\role{Software Engineer}{May 2021 -- Feb 2023}
+\begin{itemize}
+  \item Cut the \resumeLink{https://blog.sentry.io/javascript-sdk-package-reduced/}{JavaScript SDK bundle size by 29\%} and built an
+    \resumeLink{https://github.com/getsentry/sentry-sdk-benchmark}{SDK benchmarking framework}.
+\end{itemize}
+\vspace{3bp}
+\role{Software Engineering Intern}{May -- Aug 2020 \enspace|\enspace Sep -- Dec 2019}
+\begin{itemize}
+  \item Built the \resumeLink{https://www.npmjs.com/package/@sentry/react}{React SDK} and developed a Sentry exporter for the OpenTelemetry Collector.
+  \item Built Sentry's \resumeLink{https://docs.sentry.io/platforms/python/pyspark/}{PySpark integration} and data pipelines with Apache Beam and Airflow.
+\end{itemize}
+
+\employer{Wealthsimple}{Toronto, ON}
+\role{Software Engineer Co-op}{Jan -- Apr 2019}
+\begin{itemize}
+  \item Built a visual snapshot testing service and cut average frontend deployment time by 20\%.
+\end{itemize}
+
+\employer{Zendesk}{San Francisco, CA}
+\role{Software Engineering Intern}{May -- Aug 2018}
+\begin{itemize}
+  \item Redesigned macro previews with the design team and cut workspace load times by 10\%.
+\end{itemize}
+
+\employer{Shopify}{Ottawa, ON}
+\role{Software Developer Intern}{Sep -- Dec 2017}
+\begin{itemize}
+  \item Migrated admin code to TypeScript and GraphQL and built accessible React components for Polaris.
+\end{itemize}
+
+\employer{Rogers Communications}{Toronto, ON}
+\role{Software Developer Intern}{Jan -- Apr 2017}
+
+\resumeSection{Speaking \& Writing}
+\workSample{Talks}{Evaling Agentic Systems}{Slides · 2026}{https://abhijeetprasad.com/slides/evaling-agentic-systems/}
+\workSample{}{Achieving End-to-End Production Visibility with Tracing}{code.talks · 2025}{https://www.youtube.com/watch?v=vL2yeezEPxc}
+\workSample{}{Module Customization Hooks by Example}{JSConf US · 2025}{https://www.youtube.com/watch?v=fuRA874CkZU}
+\vspace{3bp}
+\workSample{Writing}{JavaScript needs Debug IDs}{Sentry Blog · 2025}{https://blog.sentry.io/javascript-needs-debug-ids/}
+
+\resumeSection{Education}
+\textbf{Systems Design Engineering}\hfill{\fontsize{11bp}{14bp}\selectfont\itshape 2016 -- 2021}\par
+\textit{University of Waterloo, Waterloo, ON}
+
+\end{document}
